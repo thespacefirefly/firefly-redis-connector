@@ -1,0 +1,29 @@
+{
+  "name": "firefly-redis-connector",
+  "version": "1.0.0",
+  "description": "Redis connector for FireFly Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha tests/**",
+    "doc": "WIP",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thespacefirefly/firefly-redis-connector.git"
+  },
+  "author": "@k33g_org",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thespacefirefly/firefly-redis-connector/issues"
+  },
+  "homepage": "https://github.com/thespacefirefly/firefly-redis-connector#readme",
+  "dependencies": {
+    "monet": "^0.8.10",
+    "redis": "^2.6.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
