@@ -37,8 +37,10 @@ class RedisDb {
   get(key) {
     return new Promise((resolve, reject) => {
       try {
-        let result = this.redisCli.get(key) 
-        resolve(monet.Maybe.fromNull(result))
+        let result = this.redisCli.get(key, (error, reply) => {
+          if(error) throw error
+          resolve(monet.Maybe.fromNull(reply))
+        }) 
       } catch (error) {
         reject(error)
       }
@@ -61,10 +63,18 @@ class RedisDb {
   keys(predicate) { //⚠️ predicate is a closure ⚠️ so for Redis, eg: predicate = `() => "*hi:*"`
     return new Promise((resolve, reject) => {
       try {
-        let pattern = predicate()
-        pattern !== undefined
-        ? resolve(this.redisCli.keys(pattern))
-        : resolve(this.redisCli.keys())
+        if(predicate !== undefined) {
+          this.redisCli.keys(predicate(), (error, replies) => {
+            if(error) throw error
+            resolve(replies)
+          })
+        } else {
+          this.redisCli.keys('*', (error, replies) => {
+            if(error) throw error
+            resolve(replies)
+          })
+        }
+
       } catch (error) {
         reject(error)
       }
